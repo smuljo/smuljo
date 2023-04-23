@@ -14,6 +14,7 @@ static IConfiguration CreateConfiguration()
     return new ConfigurationBuilder()
         .SetBasePath(Directory.GetCurrentDirectory())
         .AddJsonFile("appsettings.json", true)
+        .AddJsonFile("appsettings.Development.json", true)
         .AddEnvironmentVariables()
         .Build();
 }
