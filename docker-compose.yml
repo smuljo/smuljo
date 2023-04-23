@@ -38,4 +38,15 @@ services:
       - ConnectionStrings__DefaultConnection=Host=postgres;Port=5432;Username=postgres;Password=postgrespw;Database=smuljo
     depends_on:
       dbmigrator:
-        condition: service_completed_successfully      
+        condition: service_completed_successfully
+        
+  frontend:
+    image: frontend
+    build:
+      context: frontend
+      dockerfile: Dockerfile
+    ports:
+      - 5001:80
+    depends_on:
+      webapi:
+        condition: service_started      
