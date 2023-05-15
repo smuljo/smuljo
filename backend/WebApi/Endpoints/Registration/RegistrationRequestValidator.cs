@@ -1,5 +1,7 @@
 ﻿using FluentValidation;
 
+namespace WebApi.Endpoints.Registration;
+
 public sealed class RegistrationRequestValidator : AbstractValidator<RegistrationRequest>
 {
     public RegistrationRequestValidator()

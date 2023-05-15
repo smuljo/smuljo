@@ -1,4 +1,5 @@
-﻿public sealed class RegistrationRequest
+﻿namespace WebApi.Endpoints.Registration;
+public sealed class RegistrationRequest
 {
     public required string UserName { get; set; }
 

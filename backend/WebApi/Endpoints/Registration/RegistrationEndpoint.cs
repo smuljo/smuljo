@@ -4,33 +4,25 @@ using Microsoft.EntityFrameworkCore;
 using System.Security.Cryptography;
 using System.Text;
 
+namespace WebApi.Endpoints.Registration;
+
 public sealed class RegistrationEndpoint : IEndpoint<RegistrationRequest, IResult>
 {
     private ApplicationDbContext ApplicationDbContext { get; set; } = default!;
 
-    public void AddRoute(IEndpointRouteBuilder app)
-    {
-        app.MapPost("/registration",
-            async([AsParameters, Validate] RegistrationRequest request, ApplicationDbContext applicationDbContext) =>
-            {
-                ApplicationDbContext = applicationDbContext;
-                return await HandleAsync(request);
-            });
-    }
-
     public async Task<IResult> HandleAsync(RegistrationRequest request)
     {
-        if (await UserExists(request.UserName))
+        if (await ApplicationDbContext.Users.AnyAsync(u => u.UserName == request.UserName))
         {
             return Results.Conflict("User with this login already exists");
         }
-        
+
         var hashedPassword = GetPasswordsHash(request.Password);
 
         var user = new User
         {
             UserName = request.UserName,
-            PasswordHash = request.Password
+            PasswordHash = hashedPassword
         };
 
         ApplicationDbContext.Users.Add(user);
@@ -38,8 +30,16 @@ public sealed class RegistrationEndpoint : IEndpoint<RegistrationRequest, IResul
         await ApplicationDbContext.SaveChangesAsync();
 
         return Results.Ok("User successfully created!");
+    }
 
-        async Task<bool> UserExists(string username) => await ApplicationDbContext.Users.AnyAsync(u => u.UserName == username);
+    public void AddRoute(IEndpointRouteBuilder app)
+    {
+        app.MapPost("/registration",
+            async ([AsParameters, Validate] RegistrationRequest request, ApplicationDbContext applicationDbContext) =>
+            {
+                ApplicationDbContext = applicationDbContext;
+                return await HandleAsync(request);
+            });
     }
 
     private string GetPasswordsHash(string password)
