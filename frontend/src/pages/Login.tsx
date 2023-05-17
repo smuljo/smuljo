@@ -21,7 +21,6 @@ function Login() {
         userName: '',
         password: ''
     });
-    const [authData, setAuthData] = useState<AuthData | null>(null);
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         setFormData({
@@ -41,7 +40,6 @@ function Login() {
             }
         })
             .then(response => {
-                setAuthData(response.data);
                 localStorage.setItem('accessToken', response.data.accessToken);
                 navigate('/');
             })
