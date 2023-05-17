@@ -11,7 +11,12 @@ const ColorButton = styled(Button)(({ theme }) => ({
     },
 }));
 
-function MyButton({ children, ...props }) {
+interface IMyButtonProps {
+    children: React.ReactNode,
+    [key:string]: any
+}
+
+function MyButton({ children, ...props }: IMyButtonProps) {
     return (
         <ColorButton {...props} size="large" variant="contained">
             {children}

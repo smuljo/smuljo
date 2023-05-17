@@ -1,6 +1,6 @@
 import React, {useContext} from 'react';
 import {Route, Routes} from "react-router-dom";
-import {publicRoutes} from "../routes/index";
+import {publicRoutes} from "./index";
 import {AuthContext} from "../context";
 import Materials from "../pages/Materials";
 
@@ -15,7 +15,6 @@ const AppRouter = () => {
                     <Route
                         path={route.path}
                         element={route.element}
-                        exact={route.exact}
                         key={route.path}
                     />
                 )}
@@ -28,7 +27,6 @@ const AppRouter = () => {
                     <Route
                         path={route.path}
                         element={route.element}
-                        exact={route.exact}
                         key={route.path}
                     />
                 )}
