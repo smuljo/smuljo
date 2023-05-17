@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 namespace WebApi.Endpoints.ReadComments;
 
 public sealed class ReadCommentsEndpoint : IEndpoint<PaginatedRequest<int>, IResult>
-{    
+{
     private ApplicationDbContext ApplicationDbContext { get; set; } = default!;
 
     public async Task<IResult> HandleAsync(PaginatedRequest<int> request)
@@ -38,11 +38,14 @@ public sealed class ReadCommentsEndpoint : IEndpoint<PaginatedRequest<int>, IRes
 
     public void AddRoute(IEndpointRouteBuilder app)
     {
-        app.MapGet("/comments",
-            async ([AsParameters, Validate] PaginatedRequest<int> request, ApplicationDbContext applicationDbContext) =>
-            {
-                ApplicationDbContext = applicationDbContext;
-                return await HandleAsync(request);
-            });
+        app
+            .MapGet("/comments",
+                async ([AsParameters, Validate] PaginatedRequest<int> request,
+                    ApplicationDbContext applicationDbContext) =>
+                {
+                    ApplicationDbContext = applicationDbContext;
+                    return await HandleAsync(request);
+                })
+            .AllowAnonymous();
     }
 }
