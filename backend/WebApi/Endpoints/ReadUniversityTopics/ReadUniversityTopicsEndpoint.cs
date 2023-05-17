@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 namespace WebApi.Endpoints.ReadUniversityTopics;
 
 public sealed class ReadUniversityTopicsEndpoint : IEndpoint<PaginatedRequest, IResult>
-{    
+{
     private ApplicationDbContext ApplicationDbContext { get; set; } = default!;
 
     public async Task<IResult> HandleAsync(PaginatedRequest request)
@@ -26,11 +26,13 @@ public sealed class ReadUniversityTopicsEndpoint : IEndpoint<PaginatedRequest, I
 
     public void AddRoute(IEndpointRouteBuilder app)
     {
-        app.MapGet("/topics/university",
-            async ([AsParameters, Validate] PaginatedRequest request, ApplicationDbContext applicationDbContext) =>
-            {
-                ApplicationDbContext = applicationDbContext;
-                return await HandleAsync(request);
-            });
+        app
+            .MapGet("/topics/university",
+                async ([AsParameters, Validate] PaginatedRequest request, ApplicationDbContext applicationDbContext) =>
+                {
+                    ApplicationDbContext = applicationDbContext;
+                    return await HandleAsync(request);
+                })
+            .AllowAnonymous();
     }
 }

@@ -22,7 +22,7 @@ public static class EndpointsConfiguration
     {
         var scope = builder.Services.CreateScope();
 
-        var group = builder.MapGroup("api");
+        var group = builder.MapGroup("api").RequireCors("frontend");
 
         var endpoints = scope.ServiceProvider.GetServices<IEndpoint>();
 
