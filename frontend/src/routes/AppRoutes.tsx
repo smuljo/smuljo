@@ -1,14 +1,13 @@
-import React, {useContext} from 'react';
+import React from 'react';
 import {Route, Routes} from "react-router-dom";
 import {publicRoutes} from "./index";
-import {AuthContext} from "../context";
 import Materials from "../pages/Materials";
 
 const AppRouter = () => {
-    const {isAuth} = useContext(AuthContext);
+    const token = localStorage.getItem('accessToken');
 
     return (
-        isAuth
+        token
             ?
             <Routes>
                 {publicRoutes.map(route =>

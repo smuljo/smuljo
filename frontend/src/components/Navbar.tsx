@@ -1,8 +1,7 @@
-import React, {useContext} from 'react';
+import React from 'react';
 import {AppBar, Box, Button, createTheme, ThemeProvider, Toolbar, Typography} from "@mui/material";
 import {cyan} from "@mui/material/colors";
-import {Link} from "react-router-dom";
-import {AuthContext} from "../context";
+import {Link, useNavigate} from "react-router-dom";
 
 const theme = createTheme({
     palette: {
@@ -16,15 +15,16 @@ const theme = createTheme({
 });
 
 const Navbar = () => {
-    const {isAuth, setIsAuth} = useContext(AuthContext);
+    const navigate = useNavigate();
+    const token = localStorage.getItem('accessToken');
 
     const logout = () => {
-        setIsAuth(false);
-        localStorage.removeItem('auth')
+        localStorage.removeItem('accessToken');
+        navigate('/');
     }
 
     return (
-        isAuth
+            token
             ?
             <Box sx={{ flexGrow: 1 }}>
                 <ThemeProvider theme={theme}>
