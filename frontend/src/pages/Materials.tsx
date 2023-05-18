@@ -37,7 +37,7 @@ const Materials = () => {
         const fetchUniversities = async (itemsCount: number, page: number) => {
             try {
                 const response = await axios.get<PaginatedResponse<ReadUniversityTopicsItem>>
-                (address + `/api/topics/university?ItemsCount=${itemsCount}&Page=${page}`,
+                (`http://localhost:5000/api/topics/university?ItemsCount=${itemsCount}&Page=${page}`,
                     {
                         headers: {
                             'Content-Type': 'application/json'
