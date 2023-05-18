@@ -4,6 +4,7 @@ import {cyan} from "@mui/material/colors";
 import {Link, useNavigate} from "react-router-dom";
 import AddUniversityModal from "./AddUniversityModal";
 import AddCommentModel from "./AddCommentModel";
+import AddSubjectModel from "./AddSubjectModel";
 
 const theme = createTheme({
     palette: {
@@ -38,6 +39,7 @@ const Navbar = () => {
 
                             <AddUniversityModal></AddUniversityModal>
                             <AddCommentModel topicId={1}></AddCommentModel>
+                            <AddSubjectModel mainTopicId={1}></AddSubjectModel>
 
                             <Button onClick={logout} color="inherit">
                                 Выход
