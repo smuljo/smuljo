@@ -4,6 +4,7 @@ import MyButton from "../components/MyButton";
 import MyInput from "../components/MyInput";
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import AddUniversityModal from "../components/AddUniversityModal";
 
 interface FormData {
     userName: string;
@@ -34,7 +35,7 @@ function Login() {
 
         const jsonData = JSON.stringify(formData);
 
-        axios.post<AuthData>('https://9fe8-178-204-52-103.ngrok-free.app/api/login', jsonData, {
+        axios.post<AuthData>('https://6e70-178-204-52-103.ngrok-free.app/api/login', jsonData, {
             headers: {
                 'Content-Type': 'application/json'
             }
@@ -66,6 +67,9 @@ function Login() {
                 <Grid item>
                     <MyButton type="submit" size="large" variant="contained">Войти</MyButton>
                 </Grid>
+
+                <AddUniversityModal></AddUniversityModal>
+
             </Grid>
         </form>
     );
