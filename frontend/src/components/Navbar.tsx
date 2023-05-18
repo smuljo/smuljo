@@ -36,11 +36,6 @@ const Navbar = () => {
                             <Link to={'/'} style={{ textDecoration: 'none', color: 'inherit', marginRight: 10, flexGrow: 1, marginLeft: 5 }}>
                                 <Typography variant="h6" component="div" sx={{marginLeft: 5 }}>Smuljo</Typography>
                             </Link>
-
-                            <AddUniversityModal></AddUniversityModal>
-                            <AddCommentModel topicId={1}></AddCommentModel>
-                            <AddSubjectModel mainTopicId={1}></AddSubjectModel>
-
                             <Button onClick={logout} color="inherit">
                                 Выход
                             </Button>

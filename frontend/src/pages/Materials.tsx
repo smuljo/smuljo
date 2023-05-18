@@ -1,24 +1,26 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Accordion, AccordionSummary, AccordionDetails, List, Typography } from '@mui/material';
+import AddCommentModel from "../components/AddCommentModel";
+import AddUniversityModal from "../components/AddUniversityModal";
+import AddSubjectModel from "../components/AddSubjectModel";
 
-interface ReadSubjectTopicsItem {
+export interface ReadSubjectTopicsItem {
     id: number;
     title: string;
 }
 
-interface ReadUniversityTopicsItem {
+export interface ReadUniversityTopicsItem {
     id: number;
     title: string;
 }
 
-interface ReadCommentsItem {
+export interface ReadCommentsItem {
     userName: string;
     text: string;
-    materials: string[];
 }
 
-interface PaginatedResponse<T> {
+export interface PaginatedResponse<T> {
     items: T[]
     hasNext: boolean;
 }
@@ -60,6 +62,7 @@ const Materials = () => {
 
     const fetchSubjects = async (universityId: number, itemsCount: number, page: number) => {
         try {
+            setSubjects([]);
             const response = await axios.get<PaginatedResponse<ReadSubjectTopicsItem>>
             (address + `/api/topics/subject?Id=${universityId}&ItemsCount=${itemsCount}&Page=${page}`);
             if (response.status === 200)
@@ -71,6 +74,7 @@ const Materials = () => {
 
     const fetchComments = async (subjectId: number, itemsCount: number, page: number) => {
         try {
+            setComments([]);
             const response = await axios.get<PaginatedResponse<ReadCommentsItem>>
             (address + `/api/comments?Id=${subjectId}&ItemsCount=${itemsCount}&Page=${page}`);
             if (response.status === 200)
@@ -124,13 +128,16 @@ const Materials = () => {
                                                     </Accordion>
                                                 ))}
                                             </List>
+                                            <AddCommentModel topicId={subject.id} setComments={setComments}></AddCommentModel>
                                         </AccordionDetails>}
                                     </Accordion>
                                 ))}
+                                <AddSubjectModel mainTopicId={university.id} setSubjects={setSubjects}></AddSubjectModel>
                             </List>
                         </AccordionDetails>
                     </Accordion>
                 ))}
+                <AddUniversityModal setUniversities={setUniversities}></AddUniversityModal>
             </List>
         </div>
     );

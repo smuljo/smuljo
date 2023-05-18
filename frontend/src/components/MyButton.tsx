@@ -18,7 +18,7 @@ interface IMyButtonProps {
 
 function MyButton({ children, ...props }: IMyButtonProps) {
     return (
-        <ColorButton {...props} size="large" variant="contained">
+        <ColorButton {...props} size="small" variant="contained">
             {children}
         </ColorButton>
     );
