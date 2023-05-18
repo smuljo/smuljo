@@ -12,6 +12,8 @@ public sealed class CreateCommentEndpoint : IEndpoint<CreateCommentRequest, IRes
 
     public async Task<IResult> HandleAsync(CreateCommentRequest request)
     {
+        var userId = HttpContext.User.GetUserId();
+
         var topic = await ApplicationDbContext.Topics
             .Include(t => t.Comments)
             .FirstOrDefaultAsync(t => t.Id == request.TopicId);
@@ -21,10 +23,12 @@ public sealed class CreateCommentEndpoint : IEndpoint<CreateCommentRequest, IRes
             return Results.UnprocessableEntity($"Topic with id {request.TopicId} not found.");
         }
 
+        var user = await ApplicationDbContext.Users.FirstAsync(u => u.Id == userId);
+
         var comment = new Comment
         {
             Text = request.Text,
-            UserId = HttpContext.User.GetUserId(),
+            User = user,
             Materials = request.MaterialLinks
                 .Select(link => new Material
                 {
@@ -35,7 +39,14 @@ public sealed class CreateCommentEndpoint : IEndpoint<CreateCommentRequest, IRes
 
         topic.Comments.Add(comment);
         await ApplicationDbContext.SaveChangesAsync();
-        return Results.Ok();
+
+        var response = new CreateCommentResponse
+        {
+            UserName = user.UserName,
+            Text = request.Text
+        };
+
+        return Results.Ok(response);
     }
 
     public void AddRoute(IEndpointRouteBuilder app)

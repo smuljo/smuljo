@@ -62,7 +62,13 @@ public sealed class CreateTopicEndpoint : IEndpoint<CreateTopicRequest, IResult>
 
         ApplicationDbContext.Topics.Add(topic);
         await ApplicationDbContext.SaveChangesAsync();
-        return Results.Ok();
+        var response = new CreateTopicResponse
+        {
+            Id = topic.Id,
+            Title = request.Title
+        };
+        
+        return Results.Ok(response);
     }
 
     public void AddRoute(IEndpointRouteBuilder app)
