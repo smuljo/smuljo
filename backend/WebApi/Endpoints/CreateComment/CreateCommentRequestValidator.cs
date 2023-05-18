@@ -13,9 +13,5 @@ public sealed class CreateCommentRequestValidator : AbstractValidator<CreateComm
         RuleForEach(request => request.MaterialLinks)
             .NotEmpty()
             .Length(3, 100);
-
-        RuleForEach(request => request.MaterialLinks)
-            .NotEmpty()
-            .Length(3, 50);
     }
 }
