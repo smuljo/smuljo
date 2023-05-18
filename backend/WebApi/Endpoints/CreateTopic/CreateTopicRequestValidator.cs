@@ -8,6 +8,6 @@ public sealed class CreateTopicRequestValidator : AbstractValidator<CreateTopicR
     {
         RuleFor(request => request.Title)
             .NotEmpty()
-            .Length(3, 30);
+            .Length(3, 100);
     }
 }
