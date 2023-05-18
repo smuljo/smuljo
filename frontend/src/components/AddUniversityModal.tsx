@@ -78,7 +78,7 @@ const AddUniversityModal: React.FC<AddUniversityProps> = ({setUniversities}) => 
     };
 
     return (
-        <div>
+        <div style={{ marginTop: '10px' }}>
             <MyButton variant="contained" onClick={openModal}>Добавить институт</MyButton>
 
             <Modal

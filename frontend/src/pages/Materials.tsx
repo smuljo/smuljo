@@ -59,7 +59,6 @@ const Materials = () => {
         fetchUniversities(20, 1);
     }, []);
 
-
     const fetchSubjects = async (universityId: number, itemsCount: number, page: number) => {
         try {
             setSubjects([]);
@@ -103,7 +102,7 @@ const Materials = () => {
 
     if (universities)
     return (
-        <div>
+        <div style={{ margin: '0 12%' }}>
             <List>
                 {universities.map((university) => (
                     <Accordion key={university.id} expanded={selectedUniversity?.id === university.id}>
@@ -117,7 +116,7 @@ const Materials = () => {
                                         <AccordionSummary onClick={() => handleSubjectClick(subject)}>
                                             <Typography>{subject.title}</Typography>
                                         </AccordionSummary>
-                                        {comments.length > 0 && <AccordionDetails>
+                                        <AccordionDetails>
                                              <List>
                                                 {comments.map((comment) => (
                                                     <Accordion key={comment.text}
@@ -127,9 +126,9 @@ const Materials = () => {
                                                         </AccordionSummary>
                                                     </Accordion>
                                                 ))}
-                                            </List>
-                                            <AddCommentModel topicId={subject.id} setComments={setComments}></AddCommentModel>
-                                        </AccordionDetails>}
+                                                 <AddCommentModel topicId={subject.id} setComments={setComments}></AddCommentModel>
+                                             </List>
+                                        </AccordionDetails>
                                     </Accordion>
                                 ))}
                                 <AddSubjectModel mainTopicId={university.id} setSubjects={setSubjects}></AddSubjectModel>
