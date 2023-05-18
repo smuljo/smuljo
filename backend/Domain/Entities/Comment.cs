@@ -6,7 +6,6 @@ public sealed class Comment
     public Topic Topic { get; set; } = default!;
     public required string Text { get; set; }
 
-    public required int UserId { get; set; }
     public User User { get; set; } = default!;
     public ICollection<Material> Materials { get; set; } = default!;
 }
