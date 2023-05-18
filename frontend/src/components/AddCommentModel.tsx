@@ -29,10 +29,6 @@ const InputField = styled(TextField)`
   }
 `;
 
-interface TokenItem {
-    name: string;
-}
-
 interface AddCommentModelProps {
     topicId: number;
     setComments: React.Dispatch<React.SetStateAction<ReadCommentsItem[]>>;

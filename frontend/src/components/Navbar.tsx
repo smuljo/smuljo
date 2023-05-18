@@ -2,9 +2,6 @@ import React from 'react';
 import {AppBar, Box, Button, createTheme, ThemeProvider, Toolbar, Typography} from "@mui/material";
 import {cyan} from "@mui/material/colors";
 import {Link, useNavigate} from "react-router-dom";
-import AddUniversityModal from "./AddUniversityModal";
-import AddCommentModel from "./AddCommentModel";
-import AddSubjectModel from "./AddSubjectModel";
 
 const theme = createTheme({
     palette: {
