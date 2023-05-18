@@ -4,7 +4,6 @@ import MyButton from "../components/MyButton";
 import MyInput from "../components/MyInput";
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import AddUniversityModal from "../components/AddUniversityModal";
 
 interface FormData {
     userName: string;
@@ -67,9 +66,6 @@ function Login() {
                 <Grid item>
                     <MyButton type="submit" size="large" variant="contained">Войти</MyButton>
                 </Grid>
-
-                <AddUniversityModal></AddUniversityModal>
-
             </Grid>
         </form>
     );
