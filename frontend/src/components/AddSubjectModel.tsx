@@ -79,7 +79,7 @@ const AddSubjectModel: React.FC<AddSubjectModelProps> = ({ mainTopicId, setSubje
     };
 
     return (
-        <div>
+        <div style={{ marginTop: '10px' }}>
             <MyButton variant="contained" onClick={openModal}>Добавить предмет</MyButton>
 
             <Modal

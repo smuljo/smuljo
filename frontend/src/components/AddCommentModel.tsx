@@ -81,7 +81,7 @@ const AddCommentModel: React.FC<AddCommentModelProps> = ({ topicId , setComments
 
     return (
         <div>
-            <MyButton variant="contained" onClick={openModal}>Добавить комментарий</MyButton>
+            <MyButton style={{ marginTop: '10px' }} variant="contained" onClick={openModal}>Добавить комментарий</MyButton>
 
             <Modal
                 open={isModalOpen}

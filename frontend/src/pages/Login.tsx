@@ -34,7 +34,7 @@ function Login() {
 
         const jsonData = JSON.stringify(formData);
 
-        axios.post<AuthData>('https://6e70-178-204-52-103.ngrok-free.app/api/login', jsonData, {
+        axios.post<AuthData>('http://localhost:5000/api/login', jsonData, {
             headers: {
                 'Content-Type': 'application/json'
             }
