@@ -2,6 +2,8 @@ import React from 'react';
 import {AppBar, Box, Button, createTheme, ThemeProvider, Toolbar, Typography} from "@mui/material";
 import {cyan} from "@mui/material/colors";
 import {Link, useNavigate} from "react-router-dom";
+import AddUniversityModal from "./AddUniversityModal";
+import AddCommentModel from "./AddCommentModel";
 
 const theme = createTheme({
     palette: {
@@ -33,6 +35,9 @@ const Navbar = () => {
                             <Link to={'/'} style={{ textDecoration: 'none', color: 'inherit', marginRight: 10, flexGrow: 1, marginLeft: 5 }}>
                                 <Typography variant="h6" component="div" sx={{marginLeft: 5 }}>Smuljo</Typography>
                             </Link>
+
+                            <AddUniversityModal></AddUniversityModal>
+                            <AddCommentModel topicId={1}></AddCommentModel>
 
                             <Button onClick={logout} color="inherit">
                                 Выход
