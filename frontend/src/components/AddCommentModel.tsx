@@ -3,6 +3,7 @@ import axios from 'axios';
 import {Grid, Modal, TextField} from '@mui/material';
 import { styled } from '@mui/system';
 import MyButton from "./MyButton";
+import {ReadCommentsItem} from "../pages/Materials";
 
 const ModalContainer = styled('div')`
   display: flex;
@@ -30,9 +31,10 @@ const InputField = styled(TextField)`
 
 interface AddCommentModelProps {
     topicId: number;
+    setComments: React.Dispatch<React.SetStateAction<ReadCommentsItem[]>>;
 }
 
-const AddCommentModel: React.FC<AddCommentModelProps> = ({ topicId }) => {
+const AddCommentModel: React.FC<AddCommentModelProps> = ({ topicId , setComments}) => {
     const [inputValue, setInputValue] = useState('');
     const [isModalOpen, setIsModalOpen] = useState(false);
     const token = localStorage.getItem('accessToken');
@@ -52,7 +54,7 @@ const AddCommentModel: React.FC<AddCommentModelProps> = ({ topicId }) => {
 
         const jsonData = JSON.stringify(data);
 
-        axios.post('https://6e70-178-204-52-103.ngrok-free.app/api/comments', jsonData, {
+        axios.post<ReadCommentsItem>('http://localhost:5000/api/comments', jsonData, {
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`
@@ -61,6 +63,7 @@ const AddCommentModel: React.FC<AddCommentModelProps> = ({ topicId }) => {
             .then((response) => {
                 console.log(response.data);
                 console.log(jsonData);
+                setComments(prevState => [...prevState, {text: response.data.text, userName: response.data.userName}]);
                 setIsModalOpen(false);
             })
             .catch((error) => {

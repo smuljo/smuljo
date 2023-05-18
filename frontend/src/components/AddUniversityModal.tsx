@@ -3,6 +3,7 @@ import axios from 'axios';
 import {Grid, Modal, TextField} from '@mui/material';
 import { styled } from '@mui/system';
 import MyButton from "./MyButton";
+import {ReadUniversityTopicsItem} from "../pages/Materials";
 
 const ModalContainer = styled('div')`
   display: flex;
@@ -28,7 +29,11 @@ const InputField = styled(TextField)`
   }
 `;
 
-const AddUniversityModal: React.FC = () => {
+interface AddUniversityProps{
+    setUniversities:  React.Dispatch<React.SetStateAction<ReadUniversityTopicsItem[]>>
+}
+
+const AddUniversityModal: React.FC<AddUniversityProps> = ({setUniversities}) => {
     const [inputValue, setInputValue] = useState('');
     const [isModalOpen, setIsModalOpen] = useState(false);
     const token = localStorage.getItem('accessToken');
@@ -47,7 +52,7 @@ const AddUniversityModal: React.FC = () => {
 
         const jsonData = JSON.stringify(data);
 
-        axios.post('https://6e70-178-204-52-103.ngrok-free.app/api/topics', jsonData, {
+        axios.post<ReadUniversityTopicsItem>('http://localhost:5000/api/topics', jsonData, {
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`
@@ -56,6 +61,7 @@ const AddUniversityModal: React.FC = () => {
             .then((response) => {
                 console.log(response.data);
                 console.log(jsonData);
+                setUniversities(prevState => [...prevState, {id: response.data.id, title: response.data.title}]);
                 setIsModalOpen(false);
             })
             .catch((error) => {

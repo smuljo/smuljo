@@ -3,6 +3,7 @@ import axios from 'axios';
 import {Grid, Modal, TextField} from '@mui/material';
 import { styled } from '@mui/system';
 import MyButton from "./MyButton";
+import {ReadSubjectTopicsItem} from "../pages/Materials";
 
 const ModalContainer = styled('div')`
   display: flex;
@@ -30,9 +31,10 @@ const InputField = styled(TextField)`
 
 interface AddSubjectModelProps {
     mainTopicId: number;
+    setSubjects:  React.Dispatch<React.SetStateAction<ReadSubjectTopicsItem[]>>;
 }
 
-const AddSubjectModel: React.FC<AddSubjectModelProps> = ({ mainTopicId }) => {
+const AddSubjectModel: React.FC<AddSubjectModelProps> = ({ mainTopicId, setSubjects }) => {
     const [inputValue, setInputValue] = useState('');
     const [isModalOpen, setIsModalOpen] = useState(false);
     const token = localStorage.getItem('accessToken');
@@ -51,7 +53,7 @@ const AddSubjectModel: React.FC<AddSubjectModelProps> = ({ mainTopicId }) => {
 
         const jsonData = JSON.stringify(data);
 
-        axios.post('https://6e70-178-204-52-103.ngrok-free.app/api/topics', jsonData, {
+        axios.post<ReadSubjectTopicsItem>('http://localhost:5000/api/topics', jsonData, {
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`
@@ -60,6 +62,7 @@ const AddSubjectModel: React.FC<AddSubjectModelProps> = ({ mainTopicId }) => {
             .then((response) => {
                 console.log(response.data);
                 console.log(jsonData);
+                setSubjects(prevState => [...prevState, {id: response.data.id, title: response.data.title}]);
                 setIsModalOpen(false);
             })
             .catch((error) => {
