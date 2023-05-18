@@ -1,7 +1,8 @@
 import React, { useState, ChangeEvent, FormEvent } from 'react';
 import axios from 'axios';
-import {Button, Grid, Modal, Paper, TextField} from '@mui/material';
+import {Grid, Modal, TextField} from '@mui/material';
 import { styled } from '@mui/system';
+import MyButton from "./MyButton";
 
 const ModalContainer = styled('div')`
   display: flex;
@@ -72,7 +73,7 @@ const AddUniversityModal: React.FC = () => {
 
     return (
         <div>
-            <Button variant="contained" onClick={openModal}>Добавить институт</Button>
+            <MyButton variant="contained" onClick={openModal}>Добавить институт</MyButton>
 
             <Modal
                 open={isModalOpen}
@@ -95,10 +96,10 @@ const AddUniversityModal: React.FC = () => {
                                     />
                                 </Grid>
                                 <Grid item xs={3}>
-                                    <Button type="submit" variant="contained">Добавить</Button>
+                                    <MyButton type="submit" variant="contained">Добавить</MyButton>
                                 </Grid>
                                 <Grid item xs={3}>
-                                    <Button variant="contained" onClick={closeModal}>Закрыть</Button>
+                                    <MyButton variant="contained" onClick={closeModal}>Закрыть</MyButton>
                                 </Grid>
                             </Grid>
                         </form>
